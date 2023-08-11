@@ -1,0 +1,56 @@
+.mainGameContainer{
+    display: flex;
+    height: 90%;
+    width: 70%;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    color: white;
+}
+
+.picContainer{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.questionContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5rem;
+}
+
+.optionListContainer{
+    display: grid;
+    width: 100%;
+    height: 10rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.optionContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+
+span:hover{
+    background-color: #2F2098;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.button{
+    width: 10rem;
+}

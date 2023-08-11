@@ -1,0 +1,23 @@
+.mainResultPage{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+}
+
+.scoreContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonContainer{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.button{
+    width: 10rem;
+}
