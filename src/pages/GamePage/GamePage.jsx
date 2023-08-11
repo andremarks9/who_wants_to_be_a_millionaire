@@ -1,39 +1,43 @@
 import "./GamePage.css";
 import GamePic from "../../assets/mainPic.png";
 import { useState } from "react";
-import { goToHomePage, goToResultPage } from "../../routes/coordinator";
-import { useNavigate } from "react-router-dom";
+import { goToResultPage } from "../../routes/coordinator";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { URL } from "../../constants/URL";
 import { useQuestionData } from "../../hooks/useQuestionData";
 
 const GamePage = ({ setScore, score }) => {
-  const [indexQuestions, setIndexQuestions] = useState(1);
+  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [isAnswered, setIsAnswered] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
   const navigate = useNavigate();
 
-  const { data, error } = useQuestionData(URL, indexQuestions);
+  const { data, error } = useQuestionData(URL, currentQuestion);
 
   const onSubmitQuestions = (answer) => {
-    if (answer === data.correctAnswer) setScore(score + 1);
+    if (answer) setIsAnswered(true);
+    if (answer === data.correctAnswer) {
+      setIsCorrect(true);
+      setScore(score + 1);
+    } else {
+      setIsCorrect(false);
+    }
 
     setTimeout(() => {
-      if (indexQuestions === 5) {
+      if (currentQuestion === 5) {
         goToResultPage(navigate);
       } else {
-        setIndexQuestions(indexQuestions + 1);
+        setCurrentQuestion(currentQuestion + 1);
+        setIsAnswered(false);
       }
     }, 1000);
-  };
-
-  const toHomePage = () => {
-    setScore(0);
-    goToHomePage(navigate);
   };
 
   return (
     <div className="mainGameContainer">
       <div className="picContainer">
-        <img src={GamePic} width="200px" alt="Game" />
+        <img src={GamePic} width="100px" alt="Game" />
       </div>
       {error !== undefined ? (
         "Something happened!"
@@ -55,14 +59,17 @@ const GamePage = ({ setScore, score }) => {
           </div>
         </div>
       )}
-      <Button
-        className="button"
-        size="medium"
-        variant="contained"
-        onClick={toHomePage}
-      >
-        Exit
-      </Button>
+      {isAnswered && <p>{isCorrect ? "Correct!" : "Incorrect!"}</p>}
+      <Link to={"/"}>
+        <Button
+          className="button"
+          size="medium"
+          variant="contained"
+          onClick={() => setScore(0)}
+        >
+          Exit
+        </Button>
+      </Link>
     </div>
   );
 };
