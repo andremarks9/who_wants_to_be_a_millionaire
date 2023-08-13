@@ -5,16 +5,16 @@ import { URL } from "../../constants/URL";
 import { useAllQuestions } from "../../hooks/useAllQuestions";
 
 const ResultPage = ({ score, setScore }) => {
-  const { data, error } = useAllQuestions(URL);
+  const questionsList = useAllQuestions(URL);
 
   return (
     <div className="mainResultPage">
       <div className="scoreContainer">
         <h1>Score</h1>
-        {error !== undefined ? (
-          "Something happened!"
+        {!questionsList.length ? (
+          <h1>Loading...</h1>
         ) : (
-          <h2>{`${score}/${data?.data?.length}`}</h2>
+          <h2>{`${score}/${questionsList?.length}`}</h2>
         )}
       </div>
       <div className="buttonContainer">
@@ -22,7 +22,7 @@ const ResultPage = ({ score, setScore }) => {
           <Button
             className="button"
             size="medium"
-            onClick={setScore(0)}
+            onClick={() => setScore(0)}
             variant="contained"
           >
             Play Again
@@ -32,7 +32,7 @@ const ResultPage = ({ score, setScore }) => {
           <Button
             className="button"
             size="medium"
-            onClick={setScore(0)}
+            onClick={() => setScore(0)}
             variant="contained"
           >
             To Home Page
